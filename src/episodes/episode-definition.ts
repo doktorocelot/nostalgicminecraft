@@ -4,6 +4,8 @@ export interface EpisodeDefinition {
     magnet4k: string
     dl1080: string
     dl4k: string
+    bg: string
+    title: string
     streamList: StreamMirrorDefinition[]
     subsList: SubtitleDefinition[]
 }

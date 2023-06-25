@@ -17,6 +17,9 @@ const displayNames = new Intl.DisplayNames(['en'], {type: 'language'})
 
         const episodeSection = document.createElement('section')
 
+        episodeSection.style.setProperty('--bg-image', `url(${episode.bg}`)
+        episodeSection.classList.add('episode-section')
+
         episodeSection.appendChild(createEpisodeHeading(episode))
 
         episodeSection.appendChild(createStreamSection(episode))
@@ -38,7 +41,7 @@ function createButtonSection() {
 
 function createEpisodeHeading(episode: EpisodeDefinition) {
     const heading = document.createElement('h2')
-    heading.textContent = `Episode ${episode.num.toString()}`
+    heading.textContent = `Episode ${episode.num.toString()} - ${episode.title}`
     return heading
 }
 

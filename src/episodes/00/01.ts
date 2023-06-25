@@ -1,5 +1,6 @@
 import {EpisodeDefinition} from '../episode-definition.ts'
 import {YOUTUBE_STREAM} from '../streaming/youtube-stream.ts'
+import thumb from '../../img/thumb/00/e01.webp'
 
 export const EPISODE_DEFINITION_01: EpisodeDefinition = {
     num: 1,
@@ -7,6 +8,8 @@ export const EPISODE_DEFINITION_01: EpisodeDefinition = {
     magnet1080: 'magnet:?xt=urn:btih:bab1959dffacb889e784b37e64f8972d8e0a260d&dn=Nostalgic_Minecraft.s01e01.1080p.mkv',
     dl4k: '/torrents/00/Nostalgic_Minecraft.s01e01.4k.mkv.torrent',
     dl1080: '/torrents/00/Nostalgic_Minecraft.s01e01.1080p.mkv.torrent',
+    bg: thumb,
+    title: 'The First Night',
     streamList: [
         {
             site: YOUTUBE_STREAM,
