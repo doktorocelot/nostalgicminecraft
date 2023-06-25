@@ -1,3 +1,4 @@
 export default {
-    base: "/nostalgicminecraft/",
+    base: "./",
+    assetsInclude: ['**/*.torrent', '**/*.ass']
 }

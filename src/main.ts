@@ -6,9 +6,7 @@ import saveSvg from './img/save.svg'
 
 const displayNames = new Intl.DisplayNames(['en'], {type: 'language'})
 
-;
-
-(() => {
+;(() => {
     const episodeListSection = document.getElementById('episodes')
     if (episodeListSection == null) throw new Error('\'downloads\' id wasn\'t defined in the HTML.')
 
@@ -45,19 +43,19 @@ function createEpisodeHeading(episode: EpisodeDefinition) {
     return heading
 }
 
-function createButton({side, link, image, text, imageAlt, isDownload}: {
+function createButton({side, link, image, text, imageAlt, downloadName}: {
     side: string | null,
     link: string,
     image: string,
     text: string | null,
     imageAlt: string,
-    isDownload: boolean
+    downloadName: string | null
 }) {
     const button = document.createElement('a')
     button.classList.add('btn')
     if (side != null) button.classList.add(side)
     button.href = link
-    if (isDownload) button.setAttribute('download', '')
+    if (downloadName != null) button.setAttribute('download', downloadName)
 
     const img = document.createElement('img')
     img.src = image
@@ -79,7 +77,7 @@ function createDownloadGroup() {
     return group
 }
 
-function createFullDownloadGroup(magnet: string, dl: string, text: string) {
+function createFullDownloadGroup(magnet: string, dl: string, text: string, filename: string) {
     const group = createDownloadGroup()
     const magnetButton = createButton({
         side: 'left',
@@ -87,7 +85,7 @@ function createFullDownloadGroup(magnet: string, dl: string, text: string) {
         image: magnetSvg,
         text: text,
         imageAlt: 'Magnet link',
-        isDownload: false,
+        downloadName: null,
     })
     const downloadButton = createButton({
         side: 'right',
@@ -95,7 +93,7 @@ function createFullDownloadGroup(magnet: string, dl: string, text: string) {
         image: saveSvg,
         text: null,
         imageAlt: 'Torrent download link',
-        isDownload: true,
+        downloadName: filename,
     })
     group.appendChild(magnetButton)
     group.appendChild(downloadButton)
@@ -108,8 +106,8 @@ function createTorrentDownloadSection(episode: EpisodeDefinition) {
     const torrentHeading = createSubheading('Torrents')
     torrentDownloadSection.appendChild(torrentHeading)
 
-    const group4k = createFullDownloadGroup(episode.magnet4k, episode.dl4k, '4k (UHD)')
-    const group1080 = createFullDownloadGroup(episode.magnet1080, episode.dl1080, '1080p (FHD)')
+    const group4k = createFullDownloadGroup(episode.magnet4k, episode.dl4k, '4k (UHD)', `Nostalgic_Minecraft.e${episode.num}.4k.torrent`)
+    const group1080 = createFullDownloadGroup(episode.magnet1080, episode.dl1080, '1080p (FHD)', `Nostalgic_Minecraft.e${episode.num}.1080p.torrent`)
 
     torrentDownloadSection.appendChild(group4k)
     torrentDownloadSection.appendChild(group1080)
@@ -136,7 +134,7 @@ function createSubsDownloadSection(episode: EpisodeDefinition) {
             image: saveSvg,
             text: `${displayNames.of(subs.lang)} Subs (by ${subs.author})`,
             imageAlt: 'Subtitle download link',
-            isDownload: true,
+            downloadName: `Nostalgic_Minecraft.e${episode.num}.${subs.lang}.ass`,
         })
         subsDownloadGroup.appendChild(subsButton)
         subsDownloadSection.appendChild(subsDownloadGroup)
@@ -158,7 +156,7 @@ function createStreamSection(episode: EpisodeDefinition) {
             image: stream.site.icon,
             text: stream.site.name,
             imageAlt: `${stream.site.name} link`,
-            isDownload: false,
+            downloadName: null,
         })
         streamGroup.appendChild(streamButton)
         streamSection.appendChild(streamGroup)
